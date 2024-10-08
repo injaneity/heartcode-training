@@ -15,27 +15,75 @@ export function NavigationBar() {
             <div className="flex-grow border-t border-gray-800 dark:border-white" style={{ maxWidth: "10vw" }}></div>
             
             {/* Center - Navigation Links with Divider */}
-            <div className="flex items-center justify-center space-x-4 mx-4" style={{ maxWidth: "25vw" }}>
+            <div className="flex items-center justify-center space-x-4 mx-10" style={{ maxWidth: "25vw" }}>
               <Link href="/about">
                 <div
-                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/about" ? "text-red-500" : "text-gray-700 dark:text-gray-300"} hover:text-gray-900 dark:hover:text-white`}
-                  style={{ fontSize: '24px' }}
+                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/about" ? "text-red-500" : "text-gray-700 dark:text-gray-300"}`}
+                  style={{
+                    fontSize: '24px',
+                    textShadow: pathname === "/about" 
+                      ? '0 0 10px rgba(220, 91, 71, 0.8), 0 0 20px rgba(220, 91, 71, 0.8)'
+                      : 'none',
+                    transition: 'text-shadow 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (pathname !== "/about") {
+                      e.currentTarget.style.textShadow = '0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (pathname !== "/about") {
+                      e.currentTarget.style.textShadow = 'none';
+                    }
+                  }}
                 >
                   ABOUT
                 </div>
               </Link>
               <Link href="/quiz">
                 <div
-                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/quiz" ? "text-red-500" : "text-gray-700 dark:text-gray-300"} hover:text-gray-900 dark:hover:text-white`}
-                  style={{ fontSize: '24px' }}
+                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/quiz" ? "text-red-500" : "text-gray-700 dark:text-gray-300"}`}
+                  style={{
+                    fontSize: '24px',
+                    textShadow: pathname === "/quiz" 
+                      ? '0 0 10px rgba(220, 91, 71, 0.8), 0 0 20px rgba(220, 91, 71, 0.8)'
+                      : 'none',
+                    transition: 'text-shadow 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (pathname !== "/quiz") {
+                      e.currentTarget.style.textShadow = '0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (pathname !== "/quiz") {
+                      e.currentTarget.style.textShadow = 'none';
+                    }
+                  }}
                 >
                   QUIZ
                 </div>
               </Link>
               <Link href="/contact">
                 <div
-                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/contact" ? "text-red-500" : "text-gray-700 dark:text-gray-300"} hover:text-gray-900 dark:hover:text-white`}
-                  style={{ fontSize: '24px' }}
+                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/contact" ? "text-red-500" : "text-gray-700 dark:text-gray-300"}`}
+                  style={{
+                    fontSize: '24px',
+                    textShadow: pathname === "/contact" 
+                      ? '0 0 10px rgba(220, 91, 71, 0.8), 0 0 20px rgba(220, 91, 71, 0.8)'
+                      : 'none',
+                    transition: 'text-shadow 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (pathname !== "/contact") {
+                      e.currentTarget.style.textShadow = '0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (pathname !== "/contact") {
+                      e.currentTarget.style.textShadow = 'none';
+                    }
+                  }}
                 >
                   CONTACT
                 </div>
