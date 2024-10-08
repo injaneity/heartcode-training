@@ -5,7 +5,8 @@ import { ModeToggle } from "@/components/modetoggle";
 export function NavigationBar() {
     return (
         <>
-        <NavigationMenu className="list-none h-16">
+        <NavigationMenu className="flex flex-row justify-between min-w-full sticky top-0 list-none h-16 p-5">
+            <div className="flex flex-row">
             <NavigationMenuItem>
                 <Link href="/" legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -27,7 +28,9 @@ export function NavigationBar() {
                     </NavigationMenuLink>
                 </Link>
             </NavigationMenuItem>
+            </div>
             <ModeToggle/>
+            
         </NavigationMenu>
         </>
     )
