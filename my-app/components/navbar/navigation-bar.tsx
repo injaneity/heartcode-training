@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/modetoggle";
 
 export function NavigationBar() {
+    const pathname = usePathname();
+
     return (
-      <nav className="shadow w-full" >
+      <nav className="shadow w-full">
           <div className="flex flex-row items-center h-16 mx-auto px-4">
             
             {/* Left - Horizontal Line */}
@@ -12,17 +17,26 @@ export function NavigationBar() {
             {/* Center - Navigation Links with Divider */}
             <div className="flex items-center justify-center space-x-4 mx-4" style={{ maxWidth: "25vw" }}>
               <Link href="/about">
-                <div className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-2 py-2 rounded-md text-sm font-medium" style={{ fontSize: '24px' }}>
+                <div
+                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/about" ? "text-red-500" : "text-gray-700 dark:text-gray-300"} hover:text-gray-900 dark:hover:text-white`}
+                  style={{ fontSize: '24px' }}
+                >
                   ABOUT
                 </div>
               </Link>
               <Link href="/quiz">
-                <div className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-2 py-2 rounded-md text-sm font-medium" style={{ fontSize: '24px' }}>
+                <div
+                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/quiz" ? "text-red-500" : "text-gray-700 dark:text-gray-300"} hover:text-gray-900 dark:hover:text-white`}
+                  style={{ fontSize: '24px' }}
+                >
                   QUIZ
                 </div>
               </Link>
               <Link href="/contact">
-                <div className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-2 py-2 rounded-md text-sm font-medium" style={{ fontSize: '24px' }}>
+                <div
+                  className={`px-2 py-2 rounded-md text-sm font-medium ${pathname === "/contact" ? "text-red-500" : "text-gray-700 dark:text-gray-300"} hover:text-gray-900 dark:hover:text-white`}
+                  style={{ fontSize: '24px' }}
+                >
                   CONTACT
                 </div>
               </Link>
@@ -38,5 +52,4 @@ export function NavigationBar() {
           </div>
       </nav>
     );
-  }
-  
+}

@@ -1,4 +1,4 @@
-// pages/Home.tsx or pages/index.tsx
+"use client"; // Must be the first line
 
 import Image from "next/image";
 import img from "@/public/weed.webp";
