@@ -6,16 +6,15 @@ import "./globals.css";
 import { NavigationBar } from "@/components/navbar/navigation-bar";
 import { ThemeProvider } from "@/components/themeprovider";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const jetBrainsMono = localFont({
+  src: [
+    { path: './fonts/JetBrainsMono-Thin.woff2', weight: '100' },
+    { path: './fonts/JetBrainsMono-Regular.woff2', weight: '400' },
+    { path: './fonts/JetBrainsMono-Bold.woff2', weight: '700' },
+  ],
+  variable: '--font-jetbrains-mono',
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" style={{scrollBehavior:'smooth'}}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${jetBrainsMono.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -37,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Scrollable Container */}
           <div className="h-screen w-full overflow-auto bg-[url('/bg.png')] bg-cover bg-center">
             {/* Inner Container */}
-            <div className="flex flex-col relative">
+            <div className="flex flex-col relative w-full">
               {/* Navigation Bar */}
               <NavigationBar />
 
