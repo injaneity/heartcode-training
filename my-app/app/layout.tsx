@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { NavigationBar } from "@/components/navbar/navigation-bar";
 import { ThemeProvider } from "@/components/themeprovider";
+import { Toaster } from "@/components/ui/toaster";
 
 const jetBrainsMono = localFont({
   src: [
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </main>
             </div>
           </div>
+          <Toaster/>
         </ThemeProvider>
       </body>
     </html>

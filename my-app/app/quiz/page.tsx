@@ -1,91 +1,91 @@
 "use client"
 
-import { useState } from "react";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
-// Define the quiz questions and correct answers
-const questions = [
-  {
-    id: 1,
-    question: "ARE DRUGS BAD",
-    options: [
-      { value: "yes", label: "Yes" },
-      { value: "no", label: "No" },
-    ],
-    correctAnswer: "yes",
-  },
-  {
-    id: 2,
-    question: "ARE NOT DRUGS GOOD",
-    options: [
-      { value: "yes", label: "Yes" },
-      { value: "no", label: "No" },
-    ],
-    correctAnswer: "yes",
-  },
-];
+const FormSchema = z.object({
+	name: z.string({
+    	required_error: "Please enter a name"
+	}).min(2, {
+    	message: "name must be more than 2 characters long"
+	}).max(20, {
+    	message: "name must be no longer than 20 characters"
+	}),
+	question1: z.string({
+    	required_error: "Please select an option"
+	})
+})
 
 export default function Quiz() {
-  // State to store user's answers
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  // State to track if the quiz has been submitted
-  const [submitted, setSubmitted] = useState(false);
+	const { toast } = useToast();
 
-  // Handle answer selection
-  const handleChange = (questionId: number, value: string) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: value }));
-  };
+	const form = useForm<z.infer<typeof FormSchema>>({
+    	resolver: zodResolver(FormSchema)
+	})
 
-  // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+	function onSubmit(data: z.infer<typeof FormSchema>) {
+    if (data.question1 === "yes") {
+        toast({
+            title: `Congratulations ${data.name}`,
+            description: "You are a drug dealer",
+        })
+    } else {
+        toast({
+            title: `Thank you ${data.name}`,
+            description: "Unfortunately you are not a drug dealer",
+        })
+    }
+  }
 
-  return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
-      {questions.map((q) => (
-        <div key={q.id} className="mb-6">
-          <div className="flex items-center mb-2">
-            <div className="font-bold mr-2">{q.id}.</div>
-            <h3 className="text-lg">{q.question}</h3>
-            {submitted && (
-              <span className="ml-3">
-                {answers[q.id] === q.correctAnswer ? (
-                  <span className="text-green-500 text-xl">✓</span>
-                ) : (
-                  <span className="text-red-500 text-xl">✗</span>
-                )}
-              </span>
-            )}
-          </div>
-          <RadioGroup
-            value={answers[q.id] || ""}
-            onValueChange={(value) => handleChange(q.id, value)}
-            disabled={submitted} // Disable inputs after submission
-          >
-            {q.options.map((option) => (
-              <div key={option.value} className="flex items-center space-x-2 mb-1">
-                <RadioGroupItem value={option.value} id={`q${q.id}-${option.value}`} />
-                <Label htmlFor={`q${q.id}-${option.value}`}>{option.label}</Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
-      ))}
-      {!submitted ? (
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Submit
-        </button>
-      ) : (
-        <div className="mt-4 text-center text-xl text-green-600">
-          Thank you for submitting the quiz!
-        </div>
-      )}
-    </form>
-  );
+	return (
+    	<Form {...form}>
+        	<form onSubmit={form.handleSubmit(onSubmit)} className="w2/3 space-y-6">
+            	<FormField
+                	control={form.control}
+                	name="name"
+                	render={({ field }) => (
+                    	<FormItem>
+                        	<FormLabel>Question 1:</FormLabel>
+                        	<FormDescription>What is your name?</FormDescription>
+                            	<FormControl>
+                                	<Input placeholder="your name here" {...field}/>
+                            	</FormControl>
+                        	<FormMessage/>
+                    	</FormItem>
+                	)}
+            	/>
+            	<FormField
+                	control={form.control}
+                	name="question1"
+                	render={({ field }) => (
+                    	<FormItem>
+                        	<FormLabel>Question 2:</FormLabel>
+                        	<FormDescription>Do you sell drugs?</FormDescription>
+                        	<Select onValueChange={field.onChange} defaultValue={field.value}>
+                            	<FormControl>
+                                	<SelectTrigger>
+                                    	<SelectValue placeholder="Please select an answer"/>
+                                	</SelectTrigger>
+                            	</FormControl>
+                            	<SelectContent>
+                                	<SelectItem value="yes">Yes</SelectItem>
+                                	<SelectItem value="no">No</SelectItem>
+                            	</SelectContent>
+                        	</Select>
+                        	<FormMessage/>
+                    	</FormItem>
+                	)}
+            	/>
+            	<Button type="submit">Submit</Button>
+        	</form>
+    	</Form>
+	)
 }
+
+
