@@ -45,7 +45,7 @@ export default function Quiz() {
 
 	return (
     	<Form {...form}>
-        	<form onSubmit={form.handleSubmit(onSubmit)} className="w2/3 space-y-6">
+        	<form onSubmit={form.handleSubmit(onSubmit)} className="w2/3 space-y-6 px-6">
             	<FormField
                 	control={form.control}
                 	name="name"
