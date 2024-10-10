@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { insertOneUser } from "@/server/user";
 
 const FormSchema = z.object({
 	name: z.string({
@@ -29,7 +30,7 @@ export default function Quiz() {
     	resolver: zodResolver(FormSchema)
 	})
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
+	async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (data.question1 === "yes") {
         toast({
             title: `Congratulations ${data.name}`,
@@ -41,6 +42,8 @@ export default function Quiz() {
             description: "Unfortunately you are not a drug dealer",
         })
     }
+	const isDrugDealer = true ? data.question1 === "yes" : false;
+	await insertOneUser(data.name, isDrugDealer);
   }
 
 	return (
